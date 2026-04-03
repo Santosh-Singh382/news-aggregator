@@ -18,38 +18,30 @@ public class NewsEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(columnDefinition = "TEXT")
     private String url;
-
-    @Column(name = "url_to_image", columnDefinition = "LONGTEXT")
+   
+    private String publishedAt;
+    @Column(name = "url_to_image", length = 1000)
     private String urlToImage;
 
-    private String publishedAt;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    @Lob
+    private String content; // Keep @Lob because this can be very long
 
-    // 🆕 Existing AI fields
-    @Column(columnDefinition = "TEXT")
-    private String summary;
-
-    private String category;
-
-    private String sentiment;
-
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "bias_label", columnDefinition = "TEXT")
     private String biasLabel;
 
-    @Column(columnDefinition = "TEXT")
-    private String topicCluster;
 
     @Column(columnDefinition = "TEXT")
-    private String factCheck;
+    private String topicCluster; // searchable, so TEXT
 
-    // 🆕 NEW FIELD for country
-    private String country;
+    @Lob
+    private String factCheck; // can be long, not searchable
 
-    // ✅ Getters and Setters
+    private String category;
+    private String sentiment;
+
+    // Getters and Setters below
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -74,15 +66,6 @@ public class NewsEntity {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public String getSummary() { return summary; }
-    public void setSummary(String summary) { this.summary = summary; }
-
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
-
-    public String getSentiment() { return sentiment; }
-    public void setSentiment(String sentiment) { this.sentiment = sentiment; }
-
     public String getBiasLabel() { return biasLabel; }
     public void setBiasLabel(String biasLabel) { this.biasLabel = biasLabel; }
 
@@ -92,6 +75,9 @@ public class NewsEntity {
     public String getFactCheck() { return factCheck; }
     public void setFactCheck(String factCheck) { this.factCheck = factCheck; }
 
-    public String getCountry() { return country; }
-    public void setCountry(String country) { this.country = country; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+
+    public String getSentiment() { return sentiment; }
+    public void setSentiment(String sentiment) { this.sentiment = sentiment; }
 }

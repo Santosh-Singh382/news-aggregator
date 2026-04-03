@@ -86,6 +86,7 @@ public class NewsApiService {
 
         return entities;
     }
+    
 
     // ✅ Search
     public List<NewsEntity> searchNews(String keyword) {
@@ -98,9 +99,15 @@ public class NewsApiService {
     }
 
     // ✅ Filter by bias label
+    
     public List<NewsEntity> filterByBias(String biasLabel) {
-        return newsRepository.findByBiasLabelIgnoreCase(biasLabel);
+        if (biasLabel == null || biasLabel.isBlank()) {
+            return newsRepository.findAll();
+        }
+        return newsRepository.findByBiasLabelIgnoreCase(biasLabel.trim());
     }
+
+    
 
     // ✅ Filter by topic
     public List<NewsEntity> filterByTopic(String topicCluster) {
@@ -110,5 +117,8 @@ public class NewsApiService {
     // ✅ Filter by category (WORLD here)
     public List<NewsEntity> filterByCountry(String countryCode) {
         return newsRepository.findByCategoryIgnoreCase(countryCode);
+        
     }
+    
+    
 }

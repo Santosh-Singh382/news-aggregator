@@ -4,18 +4,32 @@ public class BiasDetector {
 
     // Detect bias using title + content
     public static String detectBias(String title, String content) {
-        if (title == null && content == null) return "Neutral";
-
-        String text = (title != null ? title : "") + " " + (content != null ? content : "");
-        text = text.toLowerCase();
-
-        if (text.contains("government") || text.contains("politics")) {
-            return "Political Bias";
-        } else if (text.contains("market") || text.contains("business")) {
-            return "Economic Bias";
-        } else if (text.contains("sports") || text.contains("match")) {
-            return "Sports Bias";
+        if (title == null && content == null) {
+            return "Center";
         }
-        return "Neutral";
+
+        String text = ((title != null ? title : "") + " " +
+                       (content != null ? content : "")).toLowerCase();
+
+        // LEFT bias indicators
+        if (text.contains("government") ||
+            text.contains("policy") ||
+            text.contains("election") ||
+            text.contains("rights") ||
+            text.contains("welfare")) {
+            return "Left";
+        }
+
+        // RIGHT bias indicators
+        if (text.contains("market") ||
+            text.contains("business") ||
+            text.contains("economy") ||
+            text.contains("investment") ||
+            text.contains("trade")) {
+            return "Right";
+        }
+
+        // Default
+        return "Center";
     }
 }

@@ -60,7 +60,7 @@ public class NewsAIProcessor {
         String category = categorize(entity.getTitle(), entity.getDescription());
         String sentiment = analyzeSentiment(entity.getTitle() + " " + entity.getDescription() + " " + entity.getContent());
 
-        entity.setSummary(summary);
+        
         entity.setCategory(category);
         entity.setSentiment(sentiment);
     }
